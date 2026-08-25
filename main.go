@@ -3,9 +3,10 @@ package main
 import (
 	"context"
 	"fmt"
-	"log"
+	//"log"
 	"github.com/jackc/pgx/v5/pgxpool"
-	cli "crud-go/clientes"
+	//cli "crud-go/clientes"
+	p "crud-go/produtos"
 )
 
 func main() {
@@ -28,8 +29,32 @@ func main() {
 
 	// err = cli.CadastrarCliente(db, cliente)
 
-	cliente, err := cli.Ca
+	//cliente, err := cli.CarregarClientePeloId(db, 1)
+	//if err != nil {
+	//	log.Fatal("Erro ao conectar", err)
+	//}
 
-	fmt.Println("Conexão com o banco de dados estabelecida com sucesso!")
+	categoria := p.Categoria {
+		Nome: "Tecnológia",
+	}
 
+	err = p.AddCategoria(db, categoria)
+
+	if err != nil {
+		fmt.Println(err)
+	}
+
+	//fmt.Println("Conexão com o banco de dados estabelecida com sucesso!")
+
+	//fmt.Printf("%d - %s - %s - %s\n", cliente.Id, cliente.Nome, cliente.Email, cliente.Telefone)
+
+	// for _, cliente := range clientes  {
+	// 	fmt.Println(
+	// 		cliente.Id,
+	// 		cliente.Nome,
+	// 		cliente.Email,
+	// 		cliente.Telefone,
+	// 	)
+
+	fmt.Println("Produto cadastrado com sucesso!")
 }
