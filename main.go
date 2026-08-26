@@ -34,11 +34,13 @@ func main() {
 	//	log.Fatal("Erro ao conectar", err)
 	//}
 
-	categoria := p.Categoria {
-		Nome: "Tecnológia",
-	}
+	//categoria := p.Categoria {
+	//	Nome: "Telecomunicação",
+	//}
 
-	err = p.AddCategoria(db, categoria)
+	//err = p.AddCategoria(db, categoria)
+
+	categoria, err := p.CarregarTodasCategorias(db)
 
 	if err != nil {
 		fmt.Println(err)
@@ -56,5 +58,8 @@ func main() {
 	// 		cliente.Telefone,
 	// 	)
 
-	fmt.Println("Produto cadastrado com sucesso!")
+	for _, categoria := range categorias {
+		fmt.Printf("%d - %s\n", categoria.Id, categoria.Nome)
+	}
+	
 }
