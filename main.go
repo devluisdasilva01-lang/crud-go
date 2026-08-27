@@ -3,6 +3,7 @@ package main
 import (
 	"context"
 	"fmt"
+
 	//"log"
 	"github.com/jackc/pgx/v5/pgxpool"
 	//cli "crud-go/clientes"
@@ -10,7 +11,7 @@ import (
 )
 
 func main() {
-	url := "postgres://postgres:123456@localhost:5432/cruddb"
+	url := "postgres://postgres:102030@localhost:5432/cruddb"
 
 	db, err := pgxpool.New(context.Background(), url)
 
@@ -39,8 +40,8 @@ func main() {
 	//}
 
 	err = p.AddProduto(
-		db, 
-		"Monitor DEll S272 22 polegadas", 
+		db,
+		"Monitor DEll S272 22 polegadas",
 		99.9,
 		p.Categoria{
 			Id: 2,
@@ -76,5 +77,5 @@ func main() {
 	for _, produto := range produtos {
 		fmt.Printf("%d - %s - %s\n", produto.Id, produto.Nome, produto.Categoria.Nome)
 	}
-	
+
 }

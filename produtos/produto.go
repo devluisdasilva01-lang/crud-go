@@ -1,18 +1,19 @@
-package produtos 
+package produtos
 
 import (
 	"context"
-	"github.com/jack/pgx/v5/pgxpool"
+
+	"github.com/jackc/pgx/v5/pgxpool"
 )
 
 type Produto struct {
-	Id int
-	Nome string
-	Preco float64
+	Id        int
+	Nome      string
+	Preco     float64
 	Categoria Categoria
 }
 
-func AddProduto(db *pgxpoll.Pool, nome string, preco float64, categoria Categoria) error {
+func AddProduto(db *pgxpool.Pool, nome string, preco float64, categoria Categoria) error {
 	sql := `
 		INSERT INTO produtos (nome, preco, categoria_id) VALUES ($1,$2,$3)
 	`
@@ -27,7 +28,7 @@ func AddProduto(db *pgxpoll.Pool, nome string, preco float64, categoria Categori
 	return err
 }
 
-func ListarProduto(db *pgxpool.Pool) ([] Produto, error) {
+func ListarProduto(db *pgxpool.Pool) ([]Produto, error) {
 	sql := `
 		SELECT p.id, p.nome, p.preco, c.id, c.nome FROM produtos p
 		JOIN categorias c ON c.id = p.categorias_id

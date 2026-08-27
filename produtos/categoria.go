@@ -1,32 +1,37 @@
-package produtos 
+package produtos
 
 import (
 	"context"
+
 	"github.com/jackc/pgx/v5/pgxpool"
 )
 
 type Categoria struct {
-	Id int
+	Id   int
 	Nome string
 }
 
 func addCategoria(db *pgxpool.Pool, categoria Categoria) error {
 
-	sql := db.Exec(
-		context.Background(),sql,
+	sql := `
+		INSERT INTO categorias(nome) VALUES ($1)
+	`
+
+	_, err := db.Exec(
+		context.Background(), sql,
 		categoria.Nome,
 	)
 
 	return err
-	
+
 }
 
-func CarregarTodasCategorias(db *pgxpool.Pool) ([]Categoria, error){
+func CarregarTodasCategorias(db *pgxpool.Pool) ([]Categoria, error) {
 
 	sql := `
 		SELECT id, nome FROM categorias
 	`
-	
+
 	linhas, err := db.Query(context.Background(), sql)
 
 	if err != nil {
@@ -35,10 +40,10 @@ func CarregarTodasCategorias(db *pgxpool.Pool) ([]Categoria, error){
 
 	defer linhas.Close()
 
-	categorias := []Categoria {}
+	categorias := []Categoria{}
 
 	for linhas.Next() {
-		var categoria Categoria 
+		var categoria Categoria
 
 		err := linhas.Scan(
 			&categoria.Id,
@@ -52,7 +57,7 @@ func CarregarTodasCategorias(db *pgxpool.Pool) ([]Categoria, error){
 		categorias = append(categorias, categoria)
 	}
 
-	return categorias, nil 
+	return categorias, nil
 }
 
 func AtualizarCategoria(db *pgxpool.Pool, novoNome string, idCategoria int) error {
@@ -69,13 +74,13 @@ func AtualizarCategoria(db *pgxpool.Pool, novoNome string, idCategoria int) erro
 	return err
 }
 
-func BuscarCategoriaPeloId(db *pgxpool.Pool, idCategoria int)(Categoria, error) {
+func BuscarCategoriaPeloId(db *pgxpool.Pool, idCategoria int) (Categoria, error) {
 
 	sql := `
 		SELECT id, nome WHERE id = $1
 	`
 
-	var categoria Categoria 
+	var categoria Categoria
 
 	err := db.QueryRow(
 		context.Background(), sql,
