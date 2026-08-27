@@ -64,11 +64,15 @@ func main() {
 
 	fmt.Println("Produto cadastrado!")
 
-	//produtos, err := p.ListarProduto(db)
+	produtos, err := p.ListarProduto(db)
 
-	//if err != nil {
-	//	fmt.Println(err)
-	//}
+	if err != nil {
+		fmt.Println(err)
+	}
+
+	for _, produto := range produtos {
+		fmt.Printf("%d - %s - %s\n", produto.Id, produto.Nome, produto.Categoria.Nome)
+	}
 
 	//fmt.Println("Conexão com o banco de dados estabelecida com sucesso!")
 
@@ -81,9 +85,5 @@ func main() {
 	// 		cliente.Email,
 	// 		cliente.Telefone,
 	// 	)
-
-	//for _, produto := range produtos {
-	//	fmt.Printf("%d - %s - %s\n", produto.Id, produto.Nome, produto.Categoria.Nome)
-	//}
 
 }
