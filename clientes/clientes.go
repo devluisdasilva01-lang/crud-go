@@ -2,17 +2,18 @@ package clientes
 
 import (
 	"context"
-	"github.com/jackc/pgx/v5/pgxpool"	
+
+	"github.com/jackc/pgx/v5/pgxpool"
 )
 
 type Cliente struct {
-	id int 
-	Nome string 
-	Email string
-	Telefone string 
+	Id       int
+	Nome     string
+	Email    string
+	Telefone string
 }
 
-// Funcionalidades 
+// Funcionalidades
 func CadastrarCliente(db *pgxpool.Pool, cliente Cliente) error {
 
 	sql := `
@@ -27,10 +28,10 @@ func CadastrarCliente(db *pgxpool.Pool, cliente Cliente) error {
 		cliente.Telefone,
 	)
 
-	return err 
+	return err
 }
 
-func CarregarTodosClientes(db *pgxpool.Pool)([]Cliente, error) {
+func CarregarTodosClientes(db *pgxpool.Pool) ([]Cliente, error) {
 
 	sql := `
 		SELECT id, nome, email, telefone
@@ -45,10 +46,10 @@ func CarregarTodosClientes(db *pgxpool.Pool)([]Cliente, error) {
 
 	defer linhas.Close()
 
-	clientes := []Cliente {}
+	clientes := []Cliente{}
 
 	for linhas.Next() {
-		var cliente Cliente 
+		var cliente Cliente
 
 		err := linhas.Scan(
 			&cliente.Id,
@@ -67,16 +68,16 @@ func CarregarTodosClientes(db *pgxpool.Pool)([]Cliente, error) {
 	return clientes, nil
 }
 
-func CarregarClientePeloId(db *pgxpool.Pool, idCliente int) (Cliente, error){
-	
-	var cliente Cliente 
+func CarregarClientePeloId(db *pgxpool.Pool, idCliente int) (Cliente, error) {
+
+	var cliente Cliente
 
 	sql := `
 		SELECT id, nome, email, telefone FROM clientes
 		WHERE id = $1
 	`
 	err := db.QueryRow(
-		context.Background(),sql,
+		context.Background(), sql,
 		idCliente,
 	).Scan(
 		&cliente.Id,
@@ -87,4 +88,3 @@ func CarregarClientePeloId(db *pgxpool.Pool, idCliente int) (Cliente, error){
 
 	return cliente, err
 }
-
