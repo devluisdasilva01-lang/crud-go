@@ -35,32 +35,40 @@ func main() {
 	//	log.Fatal("Erro ao conectar", err)
 	//}
 
-	//categoria := p.Categoria {
+	//categoria := p.Categoria{
 	//	Nome: "Telecomunicação",
 	//}
+
+	//err = p.AddCategoria(db, categoria)
+
+	//if err != nil {
+	//	fmt.Println(err)
+	//	return
+	//}
+
+	//fmt.Println("Categoria cadastrado!")
 
 	err = p.AddProduto(
 		db,
 		"Monitor DEll S272 22 polegadas",
 		99.9,
 		p.Categoria{
-			Id: 2,
+			Id: 1,
 		},
 	)
 
 	if err != nil {
 		fmt.Println(err)
+		return
 	}
 
 	fmt.Println("Produto cadastrado!")
 
-	//err = p.AddCategoria(db, categoria)
+	//produtos, err := p.ListarProduto(db)
 
-	produtos, err := p.ListarProduto(db)
-
-	if err != nil {
-		fmt.Println(err)
-	}
+	//if err != nil {
+	//	fmt.Println(err)
+	//}
 
 	//fmt.Println("Conexão com o banco de dados estabelecida com sucesso!")
 
@@ -74,8 +82,8 @@ func main() {
 	// 		cliente.Telefone,
 	// 	)
 
-	for _, produto := range produtos {
-		fmt.Printf("%d - %s - %s\n", produto.Id, produto.Nome, produto.Categoria.Nome)
-	}
+	//for _, produto := range produtos {
+	//	fmt.Printf("%d - %s - %s\n", produto.Id, produto.Nome, produto.Categoria.Nome)
+	//}
 
 }

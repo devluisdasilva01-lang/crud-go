@@ -11,7 +11,7 @@ type Categoria struct {
 	Nome string
 }
 
-func addCategoria(db *pgxpool.Pool, categoria Categoria) error {
+func AddCategoria(db *pgxpool.Pool, categoria Categoria) error {
 
 	sql := `
 		INSERT INTO categorias(nome) VALUES ($1)
