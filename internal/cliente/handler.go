@@ -1,7 +1,7 @@
 package cliente
 
 import (
-	"ecoding/json"
+	"encoding/json"
 	"net/http"
 	"strconv"
 	"github.com/go-chi/chi/v5"
@@ -11,13 +11,13 @@ type Handler struct {
 	service *Service 
 }
 
-func NetHandler(service *Service) *Handler {
+func NewHandler(service *Service) *Handler {
 	return &Handler{
 		service: service,
 	}
 }
 
-func (h *Handler) addCliente(response http.ResponseWriter, request *http.Request) {
+func (h *Handler) AddCliente(response http.ResponseWriter, request *http.Request) {
 	
 	var cliente Cliente
 
@@ -37,7 +37,7 @@ func (h *Handler) addCliente(response http.ResponseWriter, request *http.Request
 	if err != nil {
 		http.Error(
 			response, err.Error(),
-			http.StatusBadResquest,
+			http.StatusBadRequest,
 		)
 
 		return
@@ -64,13 +64,13 @@ func(h *Handler) ListarTodosClientes(response http.ResponseWriter, request *http
 		"application/json",
 	)
 
-	json.NewEncoder(response).Enconde(clientes)
+	json.NewEncoder(response).Encode(clientes)
 }
 
 func(h *Handler) BuscarClientePorId (response http.ResponseWriter, request *http.Request) {
 
-	idTexto := chi.UrlParam(request, "id")
-	id, err : stroconv.Atoi(idText) 
+	idTexto := chi.URLParam(request, "id")
+	id, err : strconv.Atoi(idText) 
 
 	if err != nil {
 		http.Error(
@@ -82,13 +82,13 @@ func(h *Handler) BuscarClientePorId (response http.ResponseWriter, request *http
 	cliente, err := h.service.BuscarClientePorId(id)
 
 	if err != nil {
-		htt.Error(
-			reponse, "Cliente não encontrado"
+		http.Error(
+			response, "Cliente não encontrado"
 			http.StatusNotFound,
 		)
 	}
 
-	json.NewEnconder(response).Encode(cliente)
+	json.NewEncoder(response).Encode(cliente)
 }
 
 func(h *Handler) EditarCliente(response http.ResponseWriter, request *http.Request) {

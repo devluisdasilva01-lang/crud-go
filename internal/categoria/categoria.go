@@ -1,14 +1,10 @@
-package produtos
+package categoria
 
 import (
 	"context"
+
 	"github.com/jackc/pgx/v5/pgxpool"
 )
-
-type Categoria struct {
-	Id   int
-	Nome string
-}
 
 func AddCategoria(db *pgxpool.Pool, categoria Categoria) error {
 
@@ -39,7 +35,7 @@ func CarregarTodasCategorias(db *pgxpool.Pool) ([]Categoria, error) {
 
 	defer linhas.Close()
 
-	categorias := []Categoria{}
+	categorias := []Categori{}
 
 	for linhas.Next() {
 		var categoria Categoria
