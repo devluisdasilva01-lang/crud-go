@@ -35,7 +35,7 @@ func CarregarTodasCategorias(db *pgxpool.Pool) ([]Categoria, error) {
 
 	defer linhas.Close()
 
-	categorias := []Categori{}
+	categorias := []Categoria{}
 
 	for linhas.Next() {
 		var categoria Categoria
