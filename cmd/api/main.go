@@ -34,23 +34,15 @@ func main() {
 
 	defer db.Close()
 
-	// Factory
-	repository := cliente.NewRepository(db)
-	service := cliente.NewService(repository)
-	handler := cliente.NewHandler(service)
-
 	router := chi.NewRouter()
-
-	router.Get("/clientes", handler.ListarTodosClientes)
-	router.Post("/clientes", handler.AddCliente)
-	router.Get("/clientes/{id}", handler.BuscarClientePorId)
+	cliente.NewRegistrModule(db, router)
 
 	log.Println(
-		"Servidor executando em http://localhost:8080",
+		"Servidor executando em http://localhost:8081",
 	)
 
 	err = http.ListenAndServe(
-		":8080",
+		":8081",
 		router,
 	)
 
