@@ -1,8 +1,8 @@
-package cliente 
+package cliente
 
 type Cliente struct {
-	Id int `json:id`
-	Nome string `json:nome`
-	Email string `json:email`
-	Telefone string `json:telefone`
+	Id       int    `json:"id"`
+	Nome     string `json:"nome"`
+	Email    string `json:"email"`
+	Telefone string `json:"telefone"`
 }

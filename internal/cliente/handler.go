@@ -4,11 +4,12 @@ import (
 	"encoding/json"
 	"net/http"
 	"strconv"
+
 	"github.com/go-chi/chi/v5"
 )
 
 type Handler struct {
-	service *Service 
+	service *Service
 }
 
 func NewHandler(service *Service) *Handler {
@@ -18,7 +19,7 @@ func NewHandler(service *Service) *Handler {
 }
 
 func (h *Handler) AddCliente(response http.ResponseWriter, request *http.Request) {
-	
+
 	var cliente Cliente
 
 	err := json.NewDecoder(request.Body).Decode(&cliente)
@@ -46,7 +47,7 @@ func (h *Handler) AddCliente(response http.ResponseWriter, request *http.Request
 	response.WriteHeader(http.StatusCreated)
 }
 
-func(h *Handler) ListarTodosClientes(response http.ResponseWriter, request *http.Request) {
+func (h *Handler) ListarTodosClientes(response http.ResponseWriter, request *http.Request) {
 
 	clientes, err := h.service.ListarClientes()
 
@@ -67,11 +68,11 @@ func(h *Handler) ListarTodosClientes(response http.ResponseWriter, request *http
 	json.NewEncoder(response).Encode(clientes)
 }
 
-func(h *Handler) BuscarClientePorId (response http.ResponseWriter, request *http.Request) {
+func (h *Handler) BuscarClientePorId(response http.ResponseWriter, request *http.Request) {
 
 	idTexto := chi.URLParam(request, "id")
-	id, err : strconv.Atoi(idText) 
 
+	id, err := strconv.Atoi(idTexto)
 	if err != nil {
 		http.Error(
 			response, "ID Inválido",
@@ -83,7 +84,7 @@ func(h *Handler) BuscarClientePorId (response http.ResponseWriter, request *http
 
 	if err != nil {
 		http.Error(
-			response, "Cliente não encontrado"
+			response, "Cliente não encontrado",
 			http.StatusNotFound,
 		)
 	}
@@ -91,6 +92,6 @@ func(h *Handler) BuscarClientePorId (response http.ResponseWriter, request *http
 	json.NewEncoder(response).Encode(cliente)
 }
 
-func(h *Handler) EditarCliente(response http.ResponseWriter, request *http.Request) {
-	
+func (h *Handler) EditarCliente(response http.ResponseWriter, request *http.Request) {
+
 }

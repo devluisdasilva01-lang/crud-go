@@ -95,7 +95,7 @@ func (r Repository) CarregarClientePeloId(idCliente int) (Cliente, error) {
 
 func (r *Repository) atualizarCliente(cliente Cliente) error {
 	sql := `
-		UDPATE clientes SET 
+		UPDATE clientes SET 
 		nome = $1 AND email = $2 AND telefone = $3
 	`
 

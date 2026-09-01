@@ -12,12 +12,6 @@ func NewService(repository *Repository) *Service {
 	}
 }
 
-func NewService(repository *Repository) *Service {
-	return &Service{
-		repository: repository,
-	}
-}
-
 func (s *Service) ListarClientes() ([]Cliente, error) {
 	return s.repository.CarregarTodosClientes()
 }
