@@ -1,7 +1,9 @@
 package main
 
 import (
+	"context"
 	"crud-go/infra/database"
+	keycloak "crud-go/infra/keycloak"
 	"crud-go/internal/cliente"
 	"log"
 	"net/http"
@@ -12,6 +14,8 @@ import (
 )
 
 func main() {
+
+	context := context.Background()
 
 	err := godotenv.Load()
 
@@ -25,7 +29,7 @@ func main() {
 		log.Fatal("Variável de ambiente DATABASE_URL não definida")
 	}
 
-	db, err := database.NewPostgresPool(url)
+	db, err := database.NewPostgresPool(url, context)
 
 	if err != nil {
 		panic("Erro ao conectar")
@@ -34,8 +38,9 @@ func main() {
 
 	defer db.Close()
 
+	keycloakClient, err := keycloak.NewKeycloak(context)
 	router := chi.NewRouter()
-	cliente.NewRegistrModule(db, router)
+	cliente.NewRegistrModule(db, router, keycloakClient)
 
 	log.Println(
 		"Servidor executando em http://localhost:8081",
