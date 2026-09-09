@@ -3,7 +3,7 @@ package main
 import (
 	"context"
 	"crud-go/infra/database"
-	keycloack "crud-go/infra/keycloak"
+	keycloak "crud-go/infra/keycloak"
 	"crud-go/internal/cliente"
 	"log"
 	"net/http"
