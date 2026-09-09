@@ -5,6 +5,8 @@ import (
 	"encoding/json"
 	"net/http"
 	"strings"
+
+	"crud-go/infra/keycloak"
 )
 
 type UserClaims struct {
@@ -14,11 +16,15 @@ type UserClaims struct {
 	Name              string `json:"name"`
 }
 
+type RealmAccess struct {
+	Roles []string `json:"roles"`
+}
+
 type contextKey string
 
 const userContextKey contextKey = "user"
 
-func Auth(keycloak *auth.Keycloak) func(http.Handler) http.Handler {
+func Auth(keycloak *keycloak.Keycloak) func(http.Handler) http.Handler {
 
 	return func(next http.Handler) http.Handler {
 

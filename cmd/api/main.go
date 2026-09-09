@@ -3,6 +3,7 @@ package main
 import (
 	"context"
 	"crud-go/infra/database"
+	keycloack "crud-go/infra/keycloak"
 	"crud-go/internal/cliente"
 	"log"
 	"net/http"
@@ -39,9 +40,9 @@ func main() {
 
 	defer db.Close()
 
-	keycloak, err := keycloack.NewKeycloack(context)
+	keycloakClient, err := keycloak.NewKeycloak(context)
 	router := chi.NewRouter()
-	cliente.NewRegistrModule(db, router)
+	cliente.NewRegistrModule(db, router, keycloakClient)
 
 	log.Println(
 		"Servidor executando em http://localhost:8081",
