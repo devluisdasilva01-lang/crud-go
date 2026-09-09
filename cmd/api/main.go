@@ -9,8 +9,6 @@ import (
 	"net/http"
 	"os"
 
-	"basico-crud-go/infra/keycloack"
-
 	"github.com/go-chi/chi/v5"
 	"github.com/joho/godotenv"
 )
