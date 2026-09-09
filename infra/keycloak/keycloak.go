@@ -1,4 +1,4 @@
-package keycloack
+package keycloak
 
 import (
 	"context"
@@ -8,11 +8,11 @@ import (
 	"github.com/coreos/go-oidc/v3/oidc"
 )
 
-type Keycloack struct {
+type Keycloak struct {
 	Verifier *oidc.IDTokenVerifier
 }
 
-func NewKeycloack(ctx context.Context) (*Keycloack, error) {
+func NewKeycloak(ctx context.Context) (*Keycloak, error) {
 	keycloakURL := os.Getenv("KEYCLOAK_URL")
 	realm := os.Getenv("KEYCLOAK_REALM")
 	clientID := os.Getenv("KEYCLOAK_CLIENT_ID")
